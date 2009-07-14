@@ -16,64 +16,68 @@
 	
 	#content {
 		color: hsl(0, 0%, 50%);
-		font: 115% monospace;
 	}
 	
 	#content .breadcrumb {
+		background: hsl(210, 5%, 15%);
+		border-bottom: 1px solid hsl(210, 5%, 20%);
+		color: hsl(0, 0%, 80%);
+		font-size: 120%;
 		font-weight: normal;
-		margin: 1em;
+		margin: 0 0 20px 0;
+		padding: 20px;
 	}
 	#content .breadcrumb a {
-		margin: 0 -0.45em 0 0;
+		color: hsl(0, 0%, 100%);
+		margin: 0 -0.45ex 0 0;
 	}
 	
 	#content img.result {
 		max-width: 100%;
-	}
-	
-	#content ol.line-numbers {
-		border-top: 1px solid #3e3e3b;
-		left: 0;
-		right: 0;
+		margin: 20px;
 	}
 	
 	#content table.result {
-		border-collapse: collapse;
-		margin: 1em;
+		border-spacing: 0;
+		font: 115% monospace;
+		margin: 0;
+		width: 100%;
 	}
-		
 	#content table.result th {
 		color: hsl(0, 0%, 80%);
-		padding: 0 10px 0 0;
+		padding: 0 20px 10px 0;
 		text-align: left;
 	}
-	#content table.result th.name {
-		min-width: 25em;
-	}
 	#content table.result th.size {
-		min-width: 6em;
+		width: 10em;
 	}
 	#content table.result th.date {
-		min-width: 15em;
+		width: 18em;
 	}
 	#content table.result th.type {
-		min-width: 15em;
+		width: 18em;
 	}
 	#content table.result th.perms {
-		min-width: 15em;
+		width: 18em;
 	}
-	#content table.result th.date,
-	#content table.result th.perms,
 	#content table.result td.date,
 	#content table.result td.perms {
-		color: hsl(0, 0%, 80%);
+		color: hsl(0, 0%, 70%);
 	}
 	#content table.result td {
-		padding: 0 10px 0 0;
+		padding: 0 20px 0 0;
 	}
-	#content table.result tr.directory.first td,
-	#content table.result tr.file.first td {
-		padding-top: 10px;
+	#content table.result td a {
+		display: inline-block;
+		width: 100%;
+	}
+	#content table.result tr th:first-child,
+	#content table.result tr td:first-child {
+		padding-left: 20px
+	}
+	#content table.result tbody tr:hover,
+	#content table.result tbody tr:target {
+		background: hsl(210, 5%, 15%);
 	}
 	
 /*---------------------------------------------------------------------------------
@@ -82,6 +86,7 @@
 	
 	#source table {
 		border-spacing: 0;
+		font: 115% monospace;
 		padding: 0 0 20px 0;
 		table-layout: fixed;
 		white-space: pre-wrap;

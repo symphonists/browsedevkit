@@ -86,7 +86,7 @@
 			
 			// Display directory:
 			if ($this->_item->isDirectory()) {
-				$this->appendBreadcrumb($wrapper, __('Browsing'));
+				$this->appendBreadcrumb($wrapper, __('Viewing directory'));
 				$this->appendIndex($wrapper);
 				
 			// Image:
@@ -208,31 +208,41 @@
 			$bitter = new Bitter(true);
 			$bitter->loadFormat('symphony');
 			
-			$extension = strtolower(@array_pop(
-				explode('.', $this->_item->path())
-			));
-			
-			switch ($extension) {
-				case 'css': $bitter->loadLanguage('css'); break;
-				case 'xhtm':
-				case 'xhtml':
-				case 'htm':
-				case 'html': $bitter->loadLanguage('html'); break;
-				case 'js': $bitter->loadLanguage('js'); break;
-				case 'php3':
-				case 'php4':
-				case 'php5':
-				case 'php6':
-				case 'php': $bitter->loadLanguage('php'); break;
-				case 'xml': $bitter->loadLanguage('xml'); break;
-				case 'xsl': $bitter->loadLanguage('xsl'); break;
-				default: $bitter->loadLanguage('default'); break;
+			switch ($this->_item->mime()) {
+				case 'text/css':
+					$bitter->loadLanguage('css'); break;
+				
+				case 'application/html':
+				case 'text/html':
+					$bitter->loadLanguage('html'); break;
+				
+				case 'application/javascript':
+				case 'application/x-javascript':
+				case 'text/javascript':
+				case 'text/x-javascript':
+					$bitter->loadLanguage('js'); break;
+				
+				case 'application/php':
+				case 'application/x-php':
+				case 'text/php':
+				case 'text/x-php':
+					$bitter->loadLanguage('php'); break;
+					
+				case 'application/xml':
+				case 'text/xml':
+				case 'application/xsl':
+				case 'text/xsl':
+					$bitter->loadLanguage('xsl'); break;
+					
+				default:
+					$bitter->loadLanguage('default'); break;
 			}
 			
 			$inner = new XMLElement(
 				'div', $bitter->process($source)
 			);
 			$inner->setAttribute('id', 'source');
+			$inner->setAttribute('class', 'result');
 			
 			$wrapper->appendChild($inner);
 		}
@@ -269,6 +279,8 @@
 			
 			$table = new XMLElement('table');
 			$table->setAttribute('class', 'result');
+			$head = new XMLElement('thead');
+			$body = new XMLElement('tbody');
 			$row = new XMLElement('tr');
 			
 			$cell = new XMLElement('th');
@@ -295,7 +307,8 @@
 			$cell->setAttribute('class', 'perms');
 			$cell->setValue(__('Perms'));
 			$row->appendChild($cell);
-			$table->appendChild($row);
+			$head->appendChild($row);
+			$table->appendChild($head);
 			
 			// List directories:
 			uksort($directories, 'strcasecmp');
@@ -335,9 +348,9 @@
 				$this->appendIndexDate($row, $directory);
 				$this->appendIndexMime($row, $directory);
 				$this->appendIndexPerms($row, $directory);
-				$table->appendChild($row);
+				$body->appendChild($row);
 			}
-			
+				
 			// List files:
 			uksort($files, 'strcasecmp');
 			$count = 0;
@@ -363,9 +376,10 @@
 				$this->appendIndexDate($row, $file);
 				$this->appendIndexMime($row, $file);
 				$this->appendIndexPerms($row, $file);
-				$table->appendChild($row);
+				$body->appendChild($row);
 			}
 			
+			$table->appendChild($body);
 			$wrapper->appendChild($table);
 		}
 		

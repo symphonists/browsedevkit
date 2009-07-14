@@ -69,7 +69,16 @@
 		
 		public function mime() {
 			if (is_null($this->mime)) {
-				$this->mime = mime_content_type($this->path);
+				if (strtolower(substr(PHP_OS, 0, 3)) != 'win') {
+					$this->mime = preg_replace(
+						'/[;\s].+$/', '',
+						exec("file -bi '{$this->path}'")
+					);
+				}
+				
+				else {
+					$this->mime = mime_content_type($this->path);
+				}
 			}
 			
 			return $this->mime;
