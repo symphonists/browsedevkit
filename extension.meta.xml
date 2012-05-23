@@ -2,7 +2,7 @@
 <extension id="browsedevkit" status="released" xmlns="http://symphony-cms.com/schemas/extension/1.0">
 	<name>Browse DevKit</name>
 	<description>Browse and view files</description>
-	<repo type="github">https://github.com/rowan-lewis/browsedevkit</repo>
+	<repo type="github">https://github.com/symphonists/browsedevkit</repo>
 	<url type="discuss">http://symphony-cms.com/discuss/thread/24667/</url>
 	<types>
 		<type>Interface</type>
